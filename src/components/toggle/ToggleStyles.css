@@ -1,4 +1,4 @@
-.toggle {
+/* .toggle {
   width: 100px;
   height: 50px;
   background-color: #ccc;
@@ -29,4 +29,28 @@
 }
 .toggle-control > * {
   cursor: pointer;
+} */
+.toggle {
+ 
+  width: 100px;
+  height: 50px;
+  background-color: #ccc;
+  border-radius: 100rem;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.25s linear;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #fff;
+  transition: all 0.25s linear;
+}
+
+.toggle.active {
+  background-color: #f62682;
+}
+.spinner.active {
+  transform: translateX(50px);
 }

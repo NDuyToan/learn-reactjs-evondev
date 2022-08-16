@@ -1,7 +1,10 @@
 import React from "react";
+import Toggle from "./components/toggle/Toggle";
 
 const App = () => {
-  return <div></div>;
+  return <div style={{padding: '10px'}}>
+    <Toggle />
+  </div>;
 };
 
 export default App;

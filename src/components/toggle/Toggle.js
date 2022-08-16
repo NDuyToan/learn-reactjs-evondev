@@ -1,5 +1,7 @@
-import React, { useState } from "react";
 import "./ToggleStyles.css";
+
+import React, { useState } from "react";
+
 // stateless functional component: component nhưng không sử dụng state
 // function Toggle() {
 //   return <div className="toggle"></div>;
@@ -25,6 +27,7 @@ function Toggle() {
   // console.log(a, b);
   // initialize value: boolean(true, false), number(1,2,3,4), string("evondev"), undefined, null, [1,2,3,4], {title: "Frontend Developer"}
   const [on, setOn] = useState(false);
+  
   console.log(on);
   // console.log(on, setOn);
   // [title, setTitle]
@@ -32,19 +35,18 @@ function Toggle() {
   // [active, unactive]
   // <div className="toggle" onclick="toggle"></div>; onClick
   // state changes -> re-render
-  const handleToggle = (enable) => {
-    //  setOn(callback) -> setOn(prevState => !prevState)
-    setOn((on) => !on);
-    // const [active, setActive] = useState(true);
-    // if (enable) {
-    //   const [active, setActive] = useState(true);
-    // }
-  };
+  const [isActive, setIsActive] = useState(false);
+
+  const handleToggle = () => {
+    console.log('handleClick');
+    setIsActive(!isActive);
+   
+  }
   return (
     <div>
-      <div className={`toggle ${on ? "active" : ""}`} onClick={handleToggle}>
+      {/* <div className={`toggle ${on ? "active" : ""}`} onClick={handleToggle}>
         <div className={`spinner ${on ? "active" : ""}`}></div>
-      </div>
+      </div> */}
       {/* <div className="toggle-control">
         <div className="toggle-on" onClick={() => setOn(true)}>
           On
@@ -53,6 +55,11 @@ function Toggle() {
           Off
         </div>
       </div> */}
+      <div className={`toggle ${isActive ? "active" : ""}`} onClick={handleToggle}>
+        <div className={`spinner ${isActive ? "active" : ""}`}></div>
+      </div>
+     
+      <button onClick={handleToggle}>tang</button>
     </div>
   );
 }
