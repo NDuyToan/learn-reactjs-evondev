@@ -6,7 +6,7 @@ const App = () => {
   return <div style={{padding: '10px'}}>
     {/* <Toggle /> */}
     <Button> Primary</Button>
-    <Button className="button--secondary"> Secondary</Button>
+    <Button secondary> Secondary</Button>
   </div>;
 };
 

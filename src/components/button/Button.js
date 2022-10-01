@@ -1,14 +1,13 @@
+import React from "react";
 import "./Button.scss";
 
-import React from "react";
 
-// import styles from "./Button.module.css";
+
+import styles from "./Button.module.css";
 // styled-components
 const Button = (props) => {
   return (
-    <button className={`button ${props.className || ''}`}
-     
-    >
+    <button className={`${styles.button} ${props.secondary ? styles.buttonSecondary: ''} `}>
       {props.children}
     </button>
   );
