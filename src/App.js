@@ -1,12 +1,12 @@
-import Button from "./components/button/Button";
+
 import React from "react";
-import Toggle from "./components/toggle/Toggle";
+import styled from "styled-components";
+
+import Card from "./components/card2/Card";
 
 const App = () => {
   return <div style={{padding: '10px'}}>
-    {/* <Toggle /> */}
-    <Button> Primary</Button>
-    <Button secondary> Secondary</Button>
+    <Card/>
   </div>;
 };
 
