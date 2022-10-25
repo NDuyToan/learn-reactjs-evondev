@@ -3,34 +3,37 @@ import styled, { css } from "styled-components";
 
 const StyledCard = styled.div`
   position: relative;
-  /* width: 400px; */
-`;
+  .img-wrapper {
+    width: 100%;
+    border-radius: 10px;
 
-const StyledImgWrapper = styled.div`
-  width: 100%;
-  /* height: 400px; */
-  border-radius: 10px;
-`;
-const StyledImg = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  object-fit: cover;
-`;
-const StyledCardContent = styled.div`
-  background-color: #fff;
-  width: calc(100% - 40px);
-  border-radius: 20px;
-  padding: 10px 20px;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
-`;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+    }
+  }
 
-const StyledUser = styled.div`
-  display: flex;
-  justify-content: space-between;
+  .card-content {
+    background-color: #fff;
+    width: calc(100% - 40px);
+    border-radius: 20px;
+    padding: 10px 20px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .user-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .user-name {
+    color: red;
+  }
 `;
 
 const StyledAvatarWrapper = styled.div`
@@ -95,37 +98,38 @@ const CardAmount = styled.span`
   -webkit-text-fill-color: transparent;
 `;
 
-const Card = ({ secondary }) => {
+const Card2 = ({ secondary }) => {
   return (
     <StyledCard>
-      <StyledImgWrapper>
-        <StyledImg
+      <div className="img-wrapper">
+        <img
           src="https://cdn.dribbble.com/users/2400293/screenshots/19271835/media/68c947aa286ed6573929bc2655acff49.png?compress=1&resize=1000x750&vertical=top"
           alt=""
         />
-      </StyledImgWrapper>
-      <StyledCardContent>
-        <StyledUser>
+      </div>
+      <div className="card-content">
+        <div className="user-wrapper">
           <StyledAvatarWrapper>
             <StyledAvatar
               src="https://cdn.dribbble.com/users/2400293/screenshots/15200559/media/b4ad765bcff61ac2587049ca90fa7f72.png?compress=1&resize=1000x750&vertical=top"
               alt=""
             />
-            <span>@sao lang thang</span>
+            <span className="user-name">@sao lang thang</span>
           </StyledAvatarWrapper>
           <StyledReaction>
             <img src="/icon-heart.svg" alt="" />
             <span>256</span>
           </StyledReaction>
-        </StyledUser>
+        </div>
         <StyledCosmic>
           <h3>Cosmic Perspective </h3>
           <CardAmount secondary={secondary} fontSize="20px">
             12,000 PSL
           </CardAmount>
         </StyledCosmic>
-      </StyledCardContent>
+      </div>
     </StyledCard>
   );
 };
-export default Card;
+
+export default Card2;
