@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div style={{ padding: "10px", backgroundColor: "#eee", height: "1000px" }}>
       <CardList>
-        <Card />
+        <Card secondary />
         <Card />
         <Card />
         <Card />

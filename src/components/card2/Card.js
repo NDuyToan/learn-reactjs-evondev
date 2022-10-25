@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledCard = styled.div`
   position: relative;
@@ -70,17 +70,32 @@ const StyledCosmic = styled.div`
     font-size: 18px;
     font-weight: 600;
   }
-
-  span {
-    font-size: 18px;
-    font-weight: 700;
-    background: linear-gradient(to right, rgb(251 191 36), rgb(220 38 38) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
 `;
 
-const Card = () => {
+const CardAmount = styled.span`
+  font-size: ${(props) => props.fontSize || "18px"};
+  font-weight: 700;
+
+  ${(props) =>
+    props.secondary &&
+    css`
+      background: linear-gradient(86.88deg, #20e3b2, #2cccff);
+    `}
+  ${(props) =>
+    !props.secondary &&
+    css`
+      background: linear-gradient(
+        86.88deg,
+        #7d6aff 1.38%,
+        #ffb86c 64.35%,
+        #fc2872 119.91%
+      );
+    `}
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const Card = ({ secondary }) => {
   return (
     <StyledCard>
       <StyledImgWrapper>
@@ -105,7 +120,9 @@ const Card = () => {
         </StyledUser>
         <StyledCosmic>
           <h3>Cosmic Perspective </h3>
-          <span>12000 PSL</span>
+          <CardAmount secondary={secondary} fontSize="20px">
+            12,000 PSL
+          </CardAmount>
         </StyledCosmic>
       </StyledCardContent>
     </StyledCard>
