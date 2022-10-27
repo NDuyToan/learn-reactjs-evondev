@@ -1,9 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import useOpenLinkNewTab from "../hooks/useLinkNewTab";
+import useHover from "../hooks/useHover";
 
 const Blog2 = () => {
   // const contentRef = useRef(null);
   const { contentRef } = useOpenLinkNewTab();
+  const { hovered, elementRef } = useHover();
 
   // useEffect(() => {
   //   if (contentRef) {
@@ -24,10 +26,13 @@ const Blog2 = () => {
         distinctio ipsa corrupti rerum aliquid soluta commodi, iure doloribus
         obcaecati placeat error porro quidem nulla voluptatum tempore.
         Voluptate, saepe{" "}
-        <a href="https://google.com" className="underline">
+        <a
+          href="https://google.com"
+          className={`underline ${hovered ? "text-green-400" : ""}  `}
+          ref={elementRef}
+        >
           google.com
         </a>
-        ?
       </p>
       <p className="mb-5">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste deleniti
