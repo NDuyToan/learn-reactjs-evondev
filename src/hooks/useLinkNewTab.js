@@ -1,13 +1,19 @@
-import { useEffect, useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
-export default function useLinkNewTab() {
+export default function useOpenLinkNewTab() {
   const contentRef = useRef(null);
+
   useEffect(() => {
     if (contentRef) {
+      console.log("ref", contentRef);
       const links = contentRef.current.querySelectorAll("a");
-      links.length > 0 &&
-        links.forEach((item) => item.setAttribute("target", "_blank"));
+      console.log("link", links);
+      links.forEach((element) => {
+        element.setAttribute("target", "_blank");
+      });
     }
+
+    return () => {};
   }, []);
   return {
     contentRef,

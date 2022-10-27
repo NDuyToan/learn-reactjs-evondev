@@ -5,7 +5,8 @@ import "./index.scss";
 // import Counter from "./components/counter/Counter";
 // import HackerNew from "./components/news2/HackerNew";
 // import StopWatch from "./components/clock/StopWatch";
-import DropDown from "./components/dropdown/DropDown";
+// import DropDown from "./components/dropdown/DropDown";
+import Blog2 from "./components/Blog2";
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
       {/* <Counter /> */}
       {/* <HackerNew /> */}
       {/* <StopWatch /> */}
-      <DropDown />
+      {/* <DropDown /> */}
+      <Blog2 />
     </div>
   );
 };
