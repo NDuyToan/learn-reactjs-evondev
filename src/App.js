@@ -4,7 +4,8 @@ import "./index.scss";
 // import Photos2 from "./components/photo/Photos2";
 // import Counter from "./components/counter/Counter";
 // import HackerNew from "./components/news2/HackerNew";
-import StopWatch from "./components/clock/StopWatch";
+// import StopWatch from "./components/clock/StopWatch";
+import DropDown from "./components/dropdown/DropDown";
 
 const App = () => {
   return (
@@ -12,7 +13,8 @@ const App = () => {
       {/* <Photos2 /> */}
       {/* <Counter /> */}
       {/* <HackerNew /> */}
-      <StopWatch />
+      {/* <StopWatch /> */}
+      <DropDown />
     </div>
   );
 };
