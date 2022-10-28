@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { debounce } from "lodash";
 // https://hn.algolia.com/api/v1/search?query=react
@@ -7,25 +7,45 @@ import { debounce } from "lodash";
 const HackerNew = () => {
   const [hits, setHits] = useState([]);
   const [query, setQuery] = useState("react");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const handleFetchData = useRef(null);
+  const isMounted = useRef(true);
 
-  const handleFetchData = async () => {
+  useEffect(() => {
+    //
+    console.log("render", isMounted.current);
+    return () => {
+      // unmounted
+
+      console.log("unmounted");
+      isMounted.current = false;
+    };
+  });
+
+  handleFetchData.current = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const data = await axios.get(
         `https://hn.algolia.com/api/v1/search?query=${query}`
       );
-      console.log("data", data);
-      setHits(data?.data?.hits || []);
-      setLoading(false);
+      console.log("isMounted", isMounted.current);
+      setTimeout(() => {
+        if (isMounted.current) {
+          console.log("set hits");
+          setHits(data?.data?.hits || []);
+          setLoading(false);
+        }
+      }, 3000);
     } catch (error) {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    handleFetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    handleFetchData.current();
+    return () => {
+      console.log("un mounted 2");
+    };
   }, [query]);
 
   return (

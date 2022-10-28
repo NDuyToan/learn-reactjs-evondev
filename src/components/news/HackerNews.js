@@ -19,6 +19,7 @@ const HackerNews = () => {
     //
     return () => {
       // unmounted component
+      console.log("unmounted component");
       isMounted.current = false;
     };
   });
