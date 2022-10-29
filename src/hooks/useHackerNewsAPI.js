@@ -1,45 +1,48 @@
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
 
-export default function useHackerNewsAPI(initialUrl, initialData) {
-  const [data, setData] = useState(initialData);
+export default function useHackerNewsAPI() {
+  const [hits, setHits] = useState([]);
+  const [query, setQuery] = useState("react");
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  const handleFetchData = useRef({});
-  const [url, setUrl] = useState(initialUrl);
-
+  const handleFetchData = useRef(null);
   const isMounted = useRef(true);
 
   useEffect(() => {
-    //
-    isMounted.current = true;
     return () => {
-      // unmounted component
+      // unmounted
+
       isMounted.current = false;
     };
   }, []);
 
   handleFetchData.current = async () => {
     setLoading(true);
+    console.log("query", query);
     try {
-      const response = await axios.get(url);
+      const data = await axios.get(
+        `https://hn.algolia.com/api/v1/search?query=${query}`
+      );
+      console.log("isMounted", isMounted.current);
+
       if (isMounted.current) {
-        setData(response.data || []);
+        setHits(data?.data?.hits || []);
         setLoading(false);
       }
     } catch (error) {
       setLoading(false);
-      setErrorMessage(`The error happend ${error}`);
     }
   };
+
   useEffect(() => {
     handleFetchData.current();
-  }, [url]);
+    return () => {};
+  }, [query]);
 
   return {
-    setUrl,
+    query,
+    setQuery,
     loading,
-    errorMessage,
-    data,
+    hits,
   };
 }

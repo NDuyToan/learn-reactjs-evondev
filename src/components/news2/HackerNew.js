@@ -20,7 +20,8 @@ const HackerNew = () => {
       console.log("unmounted");
       isMounted.current = false;
     };
-  });
+    // chỉ chạy 1 lần thôi, khi unmounted mới chạy,  nếu k để thì mỗi lần render lại nó sẽ chạy.
+  }, []);
 
   handleFetchData.current = async () => {
     setLoading(true);

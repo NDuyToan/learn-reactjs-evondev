@@ -4,6 +4,7 @@ import "./index.scss";
 // import Photos2 from "./components/photo/Photos2";
 // import Counter from "./components/counter/Counter";
 import HackerNew from "./components/news2/HackerNew";
+import HackerNewWithHook from "./components/news2/HackerNewWithHook";
 import HackerNews from "./components/news/HackerNews";
 // import StopWatch from "./components/clock/StopWatch";
 // import DropDown from "./components/dropdown/DropDown";
@@ -26,8 +27,8 @@ const App = () => {
         Toggle Button
       </button>
       {/* {show && <HackerNews />} */}
-      {show && <HackerNew />}
-      {/* {<HackerNew />} */}
+      {show && <HackerNewWithHook />}
+      {/* {<HackerNewWithHook />} */}
     </div>
   );
 };
