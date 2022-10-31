@@ -1,21 +1,21 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+//https://hn.algolia.com/api/v1/search?query=${query}
 
 function withLoading(Component, url) {
   return (props) => {
-    const [news, setNews] = React.useState([]);
-    React.useEffect(() => {
+    const [news, setNews] = useState([]);
+    useEffect(() => {
       async function fetchData() {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log("fetchData ~ data", data);
-        setNews(data.hits);
+        const res = await fetch(url);
+        const data = await res.json();
+        console.log("data", data?.hits);
+        setNews(data?.hits);
       }
       fetchData();
     }, []);
-    if (!news || news.length === 0) return <div>Loading...</div>;
-    return <Component data={news} {...props}></Component>;
+    if (!news || news.length === 0) return <div>Loading ...</div>;
+    return <Component news={news} {...props}></Component>;
   };
 }
+
 export default withLoading;
-// High order function: map, filter, some, every, reduce
-// [1,2,3].map((item, array) => {})
