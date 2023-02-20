@@ -1,11 +1,15 @@
 import React from "react";
-import FetchingData from "./components/advanced-react/hoc/FetchingData";
+import Form from "./components/form2/Form";
+
+import MovieSearch from "./components/form2/MovieSearchApp";
 import "./index.scss";
 
 const App = () => {
   return (
     <div className="p-5">
-      <FetchingData></FetchingData>
+      {/* <Form /> */}
+      {/* <Form2 /> */}
+      <MovieSearch />
     </div>
   );
 };
