@@ -46,8 +46,8 @@ const MovieSearch = () => {
     );
     if (response?.data?.results) {
       setMovies(response.data.results);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleInputChange = (e) => {
@@ -65,7 +65,13 @@ const MovieSearch = () => {
           value={param}
         />
       </div>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && (
+        <div className="grid grid-cols-3 gap-10">
+          <MovieLoading />
+          <MovieLoading />
+          <MovieLoading />
+        </div>
+      )}
       <div className="grid grid-cols-3 gap-10">
         {/* <MovieItem key="1" movie={movies[0]} />
         <MovieItem key="2" movie={movies[0]} />
@@ -130,6 +136,35 @@ const MovieItem = ({ movie }) => {
 
           <span className="font-semibold text-[#333]">
             {movie.vote_average}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MovieLoading = () => {
+  return (
+    <div className="bg-white p-3 shadow-sm rounded-2xl flex flex-col">
+      <div className="h-[297px] mb-10">
+        <LoadingSkeleton height="100%" radius="16px" />
+      </div>
+      <div className="content px-5 flex-1 flex flex-col">
+        <h3 className="text-md text-black font-semibold mb-4">
+          <LoadingSkeleton height="20px" />
+        </h3>
+        <p className="text-sm text-[#999] content mb-6">
+          <LoadingSkeleton height="10px" />
+          <div className="h-2"></div>
+          <LoadingSkeleton height="10px" />
+          <div className="h-2"></div>
+          <LoadingSkeleton height="10px" />
+        </p>
+        <div className="flex items-center gap-x-2 mt-auto">
+          <LoadingSkeleton height="10px" width="10px" />
+
+          <span className="font-semibold text-[#333]">
+            <LoadingSkeleton height="10px" width="20px" />
           </span>
         </div>
       </div>
