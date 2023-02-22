@@ -1,7 +1,8 @@
 import React from "react";
 import Form from "./components/form2/Form";
 
-import MovieSearch from "./components/form2/MovieSearchApp";
+import MovieSearch from "./components/form2/MovieSearch";
+import MovieSearchApp from "./components/MovieSearchApp";
 import "./index.scss";
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
       {/* <Form /> */}
       {/* <Form2 /> */}
       <MovieSearch />
+      {/* <MovieSearchApp /> */}
     </div>
   );
 };

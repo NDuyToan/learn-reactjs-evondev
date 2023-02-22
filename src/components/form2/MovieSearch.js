@@ -4,6 +4,7 @@
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import LoadingSkeleton from "../loading/LoadingSkeleton";
 import "./style.css";
 import useDebounce from "./useDebouce";
 
@@ -29,7 +30,8 @@ const initMovie = [
 
 const MovieSearch = () => {
   const [movies, setMovies] = useState(initMovie);
-  const [param, setParam] = useState("");
+  const [param, setParam] = useState("batman");
+  const [isLoading, setLoading] = useState(false);
   const queryDebounce = useDebounce(param, 1000);
 
   useEffect(() => {
@@ -38,12 +40,14 @@ const MovieSearch = () => {
   }, [queryDebounce]);
 
   const fetchData = async () => {
+    setLoading(true);
     const response = await axios.get(
       `https://api.themoviedb.org/3/search/movie?api_key=95f2419536f533cdaa1dadf83c606027&query=${param}`
     );
     if (response?.data?.results) {
       setMovies(response.data.results);
     }
+    setLoading(false);
   };
 
   const handleInputChange = (e) => {
@@ -61,12 +65,14 @@ const MovieSearch = () => {
           value={param}
         />
       </div>
+      {isLoading && <p>Loading...</p>}
       <div className="grid grid-cols-3 gap-10">
         {/* <MovieItem key="1" movie={movies[0]} />
         <MovieItem key="2" movie={movies[0]} />
         <MovieItem key="3" movie={movies[0]} /> */}
 
-        {movies.length > 0 &&
+        {!isLoading &&
+          movies.length > 0 &&
           movies.map((item) => <MovieItem key={item.id} movie={item} />)}
       </div>
     </div>
@@ -96,7 +102,7 @@ Image API: https://image.tmdb.org/t/p/original
 
 const MovieItem = ({ movie }) => {
   return (
-    <div className="bg-white p-3 shadow-sm rounded-2xl flex flex-col flex-1">
+    <div className="bg-white p-3 shadow-sm rounded-2xl flex flex-col">
       <div className="h-[297px] mb-10">
         <img
           src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -104,10 +110,10 @@ const MovieItem = ({ movie }) => {
           className="w-full h-full object-cover rounded-lg"
         />
       </div>
-      <div className="content px-5">
+      <div className="content px-5 flex-1 flex flex-col">
         <h3 className="text-md text-black font-semibold mb-4">{movie.title}</h3>
-        <p className="text-sm text-[#999] content">{movie.overview}</p>
-        <div className="flex items-center gap-x-2 mt-7">
+        <p className="text-sm text-[#999] content mb-6">{movie.overview}</p>
+        <div className="flex items-center gap-x-2 mt-auto">
           <svg
             width="16"
             height="15"
