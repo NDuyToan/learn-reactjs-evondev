@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useField } from "formik";
 import * as Yup from "yup";
 
 const SignUpFormFinal = () => {
@@ -123,6 +123,10 @@ const SignUpFormFinal = () => {
 export default SignUpFormFinal;
 
 const MyInput = ({ label, ...props }) => {
+  console.log("props", props);
+  const field = useField(props);
+  console.log("🚀 ~ file: SignUpFormFinal.js:128 ~ MyInput ~ field:", field);
+
   return (
     <div className="flex flex-col gap-2 mb-4">
       <label htmlFor={props.id || props.name}>{label}</label>
