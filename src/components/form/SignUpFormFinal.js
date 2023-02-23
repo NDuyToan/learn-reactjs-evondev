@@ -29,7 +29,12 @@ const SignUpFormFinal = () => {
       }}
     >
       <Form className="p-10 max-w-[500px] mx-auto">
-        <div className="flex flex-col gap-2">
+        <MyInput
+          name="firstName"
+          label="First Name"
+          placeholder="Enter your first name"
+        />
+        {/* <div className="flex flex-col gap-2">
           <label htmlFor="firstName">First Name</label>
           <Field
             type="text"
@@ -40,7 +45,7 @@ const SignUpFormFinal = () => {
           <div className="text-red-500 text-sm">
             <ErrorMessage name="firstName" />
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col gap-2 mt-4">
           <label htmlFor="lastName">Last Name</label>
           <Field
@@ -116,3 +121,19 @@ const SignUpFormFinal = () => {
 };
 
 export default SignUpFormFinal;
+
+const MyInput = ({ label, ...props }) => {
+  return (
+    <div className="flex flex-col gap-2 mb-4">
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <input
+        type="text"
+        className="rounded-md p-4 border border-gray-300"
+        {...props}
+      />
+      <div className="text-red-500 text-sm">
+        <ErrorMessage name={props.name} />
+      </div>
+    </div>
+  );
+};
