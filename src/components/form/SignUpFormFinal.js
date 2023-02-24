@@ -2,6 +2,24 @@ import { Formik, Form, Field, ErrorMessage, useField } from "formik";
 import * as Yup from "yup";
 
 const SignUpFormFinal = () => {
+  const jobs = [
+    {
+      value: "",
+      label: "Select your job",
+    },
+    {
+      value: "fe-dev",
+      label: "FE Developer",
+    },
+    {
+      value: "be-dev",
+      label: "BE Developer",
+    },
+    {
+      value: "tester",
+      label: "Tester",
+    },
+  ];
   return (
     <Formik
       initialValues={{
@@ -22,7 +40,10 @@ const SignUpFormFinal = () => {
         email: Yup.string().email().required("Required"),
         intro: Yup.string().required("Required"),
         job: Yup.string().required("Required"),
-        term: Yup.boolean(),
+        term: Yup.boolean().oneOf(
+          [true],
+          "Please check the terms and conditions."
+        ),
       })}
       onSubmit={(values) => {
         console.log(values);
@@ -31,82 +52,38 @@ const SignUpFormFinal = () => {
       <Form className="p-10 max-w-[500px] mx-auto">
         <MyInput
           name="firstName"
+          id="firstName"
           label="First Name"
           placeholder="Enter your first name"
         />
-        {/* <div className="flex flex-col gap-2">
-          <label htmlFor="firstName">First Name</label>
-          <Field
-            type="text"
-            name="firstName"
-            className="rounded-md p-4 border border-gray-300"
-            placeholder="Enter your first name"
-          />
-          <div className="text-red-500 text-sm">
-            <ErrorMessage name="firstName" />
-          </div>
-        </div> */}
-        <div className="flex flex-col gap-2 mt-4">
-          <label htmlFor="lastName">Last Name</label>
-          <Field
-            type="text"
-            name="lastName"
-            className="rounded-md p-4 border border-gray-300"
-            placeholder="Enter your last name"
-          />
-          <div className="text-red-500 text-sm">
-            <ErrorMessage name="lastName" className="text-red-500 text-sm" />
-          </div>
-        </div>
-        <div className="flex flex-col gap-2 mt-4">
-          <label htmlFor="email">Email</label>
-          <Field
-            type="email"
-            name="email"
-            className="rounded-md p-4 border border-gray-300"
-            placeholder="Enter your email"
-          />
-          <div className="text-red-500 text-sm">
-            <ErrorMessage name="email" className="text-red-500 text-sm" />
-          </div>
-        </div>
-        <div className="flex flex-col gap-2 mt-4">
-          <label htmlFor="intro">Intro</label>
-          <Field
-            as="textarea"
-            rows="5"
-            name="intro"
-            className="rounded-md p-4 border border-gray-300"
-            placeholder="Introduce your self..."
-          />
-          <div className="text-red-500 text-sm">
-            <ErrorMessage name="intro" className="text-red-500 text-sm" />
-          </div>
-        </div>
-        <div className="flex flex-col gap-2 mt-4">
-          <label htmlFor="job">Your job</label>
-          <Field
-            name="color"
-            component="select"
-            className="rounded-md p-4 border border-gray-300"
-          >
-            <option value="">Select your job</option>
-            <option value="dev">Developer</option>
-            <option value="teacher">Teacher</option>
-            <option value="tester">Tester</option>
-          </Field>
-          <div className="text-red-500 text-sm">
-            <ErrorMessage name="intro" className="text-red-500 text-sm" />
-          </div>
-        </div>
-        <div className="flex items-center gap-2 mt-4">
-          <Field type="checkbox" name="term" />
-          <p> I accept the terms and conditions</p>
+        <MyInput
+          name="lastName"
+          id="lastName"
+          label="Last Name"
+          placeholder="Enter your last name"
+        />
+        <MyInput
+          name="email"
+          id="email"
+          label="Email"
+          placeholder="Enter your email"
+          type="email"
+        />
 
-          <div className="text-red-500 text-sm">
-            <ErrorMessage name="intro" className="text-red-500 text-sm" />
-          </div>
-        </div>
+        <MyTextarea
+          name="intro"
+          id="intro"
+          label="Intro"
+          placeholder="Introduce your self..."
+          rows="5"
+        />
+
+        <MySelect name="job" id="job" label="Your job" options={jobs} />
+
+        <MyCheckbox name="term" id="term">
+          <p>I accept the terms and conditions</p>
+        </MyCheckbox>
+
         <div className="mt-4">
           <button
             type="submit"
@@ -123,9 +100,7 @@ const SignUpFormFinal = () => {
 export default SignUpFormFinal;
 
 const MyInput = ({ label, ...props }) => {
-  console.log("props", props);
-  const field = useField(props);
-  console.log("🚀 ~ file: SignUpFormFinal.js:128 ~ MyInput ~ field:", field);
+  const [field, meta] = useField(props);
 
   return (
     <div className="flex flex-col gap-2 mb-4">
@@ -133,11 +108,74 @@ const MyInput = ({ label, ...props }) => {
       <input
         type="text"
         className="rounded-md p-4 border border-gray-300"
+        {...field}
         {...props}
       />
-      <div className="text-red-500 text-sm">
-        <ErrorMessage name={props.name} />
+      {meta.touched && meta.error && (
+        <div className="text-red-500 text-sm">{meta.error}</div>
+      )}
+    </div>
+  );
+};
+
+const MyTextarea = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+
+  return (
+    <div className="flex flex-col gap-2 mb-4">
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <textarea
+        className="rounded-md p-4 border border-gray-300 resize-none"
+        {...field}
+        {...props}
+      ></textarea>
+      {meta.touched && meta.error && (
+        <div className="text-red-500 text-sm">{meta.error}</div>
+      )}
+    </div>
+  );
+};
+
+const MySelect = ({ label, options, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="flex flex-col gap-2 mb-4">
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <select
+        className="rounded-md p-4 border border-gray-300"
+        {...field}
+        {...props}
+      >
+        {options.length > 0 &&
+          options.map((item) => (
+            <option value={item.value} key={item.value}>
+              {item.label}
+            </option>
+          ))}
+      </select>
+      {meta.touched && meta.error && (
+        <div className="text-red-500 text-sm">{meta.error}</div>
+      )}
+    </div>
+  );
+};
+
+const MyCheckbox = ({ children, ...props }) => {
+  const [field, meta] = useField(props);
+  console.log("🚀 ~ file: SignUpFormFinal.js:164 ~ MyCheckbox ~ field:", field);
+  // console.log("🚀 ~ file: SignUpFormFinal.js:164 ~ MyCheckbox ~ meta:", meta);
+
+  return (
+    <div>
+      <div className="flex items-center gap-2">
+        <label className="flex items-center gap-2">
+          <input type="checkbox" {...field} {...props} />
+          {children}
+        </label>
       </div>
+      {meta.touched && meta.error && (
+        <div className="text-red-500 text-sm">{meta.error}</div>
+      )}
     </div>
   );
 };
