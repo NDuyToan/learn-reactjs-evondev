@@ -30,69 +30,79 @@ const SignUpFormFinal = () => {
         job: "",
         term: false,
       }}
-      validationSchema={Yup.object({
-        firstName: Yup.string()
-          .max(20, "Max 20 characters")
-          .required("Required"),
-        lastName: Yup.string()
-          .max(20, "Max 20 characters")
-          .required("Required"),
-        email: Yup.string().email().required("Required"),
-        intro: Yup.string().required("Required"),
-        job: Yup.string().required("Required"),
-        term: Yup.boolean().oneOf(
-          [true],
-          "Please check the terms and conditions."
-        ),
-      })}
-      onSubmit={(values) => {
-        console.log(values);
+      // validationSchema={Yup.object({
+      //   firstName: Yup.string()
+      //     .max(20, "Max 20 characters")
+      //     .required("Required"),
+      //   lastName: Yup.string()
+      //     .max(20, "Max 20 characters")
+      //     .required("Required"),
+      //   email: Yup.string().email().required("Required"),
+      //   intro: Yup.string().required("Required"),
+      //   job: Yup.string().required("Required"),
+      //   term: Yup.boolean().oneOf(
+      //     [true],
+      //     "Please check the terms and conditions."
+      //   ),
+      // })}
+      onSubmit={(values, actions) => {
+        console.log(
+          "🚀 ~ file: SignUpFormFinal.js:49 ~ SignUpFormFinal ~ actions:",
+          actions
+        );
+        setTimeout(() => {
+          actions.setSubmitting(false);
+        }, 5000);
+        // console.log(values);
       }}
     >
-      <Form className="p-10 max-w-[500px] mx-auto">
-        <MyInput
-          name="firstName"
-          id="firstName"
-          label="First Name"
-          placeholder="Enter your first name"
-        />
-        <MyInput
-          name="lastName"
-          id="lastName"
-          label="Last Name"
-          placeholder="Enter your last name"
-        />
-        <MyInput
-          name="email"
-          id="email"
-          label="Email"
-          placeholder="Enter your email"
-          type="email"
-        />
+      {({ isSubmitting }) => (
+        <Form className="p-10 max-w-[500px] mx-auto">
+          <MyInput
+            name="firstName"
+            id="firstName"
+            label="First Name"
+            placeholder="Enter your first name"
+          />
+          <MyInput
+            name="lastName"
+            id="lastName"
+            label="Last Name"
+            placeholder="Enter your last name"
+          />
+          <MyInput
+            name="email"
+            id="email"
+            label="Email"
+            placeholder="Enter your email"
+            type="email"
+          />
 
-        <MyTextarea
-          name="intro"
-          id="intro"
-          label="Intro"
-          placeholder="Introduce your self..."
-          rows="5"
-        />
+          <MyTextarea
+            name="intro"
+            id="intro"
+            label="Intro"
+            placeholder="Introduce your self..."
+            rows="5"
+          />
 
-        <MySelect name="job" id="job" label="Your job" options={jobs} />
+          <MySelect name="job" id="job" label="Your job" options={jobs} />
 
-        <MyCheckbox name="term" id="term">
-          <p>I accept the terms and conditions</p>
-        </MyCheckbox>
+          <MyCheckbox name="term" id="term">
+            <p>I accept the terms and conditions</p>
+          </MyCheckbox>
 
-        <div className="mt-4">
-          <button
-            type="submit"
-            className="w-full p-4 bg-blue-500 font-semibold text-white rounded-md"
-          >
-            Submit
-          </button>
-        </div>
-      </Form>
+          <div className="mt-4">
+            <button
+              type="submit"
+              className="w-full p-4 bg-blue-500 font-semibold text-white rounded-md"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
+        </Form>
+      )}
     </Formik>
   );
 };
@@ -162,8 +172,6 @@ const MySelect = ({ label, options, ...props }) => {
 
 const MyCheckbox = ({ children, ...props }) => {
   const [field, meta] = useField(props);
-  console.log("🚀 ~ file: SignUpFormFinal.js:164 ~ MyCheckbox ~ field:", field);
-  // console.log("🚀 ~ file: SignUpFormFinal.js:164 ~ MyCheckbox ~ meta:", meta);
 
   return (
     <div>
