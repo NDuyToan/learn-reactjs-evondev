@@ -1,6 +1,39 @@
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import React, { useState, useEffect } from "react";
+
+// const schema = yup.object({
+//   firstName: yup.string().required().maxLength(10),
+// });
+
+const initBeforeUnLoad = (showExitPrompt) => {
+  window.onbeforeunload = (event) => {
+    // Show prompt based on state
+    if (showExitPrompt) {
+      const e = event || window.event;
+      e.preventDefault();
+      if (e) {
+        e.returnValue = "";
+      }
+      return "";
+    }
+  };
+};
 
 const SignUpFormHook = () => {
+  const [showExitPrompt, setShowExitPrompt] = useState(false);
+
+  // Initialize the beforeunload event listener after the resources are loaded
+  window.onload = function () {
+    initBeforeUnLoad(showExitPrompt);
+  };
+
+  // Re-Initialize the onbeforeunload event listener
+  useEffect(() => {
+    initBeforeUnLoad(showExitPrompt);
+  }, [showExitPrompt]);
+
   const {
     register,
     handleSubmit,
@@ -28,7 +61,7 @@ const SignUpFormHook = () => {
             maxLength: 10,
           })}
         />
-        {errors?.firstName?.type === "required" && (
+        {/* {errors?.firstName?.type === "required" && (
           <div className="text-red-500 text-sm">Please fill out this field</div>
         )}
         {errors?.firstName?.type === "maxLength" && (
@@ -36,7 +69,7 @@ const SignUpFormHook = () => {
             Must be 10 characters or less
           </div>
         )}
-        {}
+        {} */}
       </div>
       <div className="flex flex-col gap-2 mt-4">
         <label htmlFor="lastName">Last Name</label>

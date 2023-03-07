@@ -1,12 +1,14 @@
 import React from "react";
-import SignUpFormHook from "./components/form/SignUpFormHook";
+import Survey from "./components/survey/Survey";
 
 import "./index.scss";
 
 const App = () => {
   return (
-    <div className="p-5 bg-slate-100">
-      <SignUpFormHook />
+    <div className="p-5">
+      {/* <SignUpFormHook /> */}
+      {/* <MyComponent /> */}
+      <Survey />
     </div>
   );
 };
