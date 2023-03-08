@@ -68,27 +68,17 @@ const OptionItem = ({ question, index, answers, setAnswers }) => {
   const { options } = question;
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleInputChange = (e) => {
-    // setAnswers({
-    //   ...answers,
-    //   // [question?.name]: answers[question.name] ? "" : e?.currentTarget?.value,
-    //   [question?.name]: e?.currentTarget?.value,
-    // });
-  };
+  const handleInputChange = (e) => {};
 
   const handleClick = (e) => {
-    console.log("handleClick", e.currentTarget.value);
-    console.log("1", answers[question.name]);
-    setAnswers({
-      ...answers,
-      [question?.name]:
-        answers[question.name] === "" ||
-        answers[question.name !== e?.currentTarget?.value]
-          ? e?.currentTarget?.value
-          : "",
-      // [question?.name]: e?.currentTarget?.value,
+    const value = e?.currentTarget?.value;
+    const currentQuestion = question?.name;
+    setAnswers((preState) => {
+      return {
+        ...preState,
+        [currentQuestion]: value === preState[currentQuestion] ? "" : value,
+      };
     });
-    // console.log("answers", answers);
   };
 
   return (
@@ -105,6 +95,7 @@ const OptionItem = ({ question, index, answers, setAnswers }) => {
               value={option.id}
               checked={option.id === answers[question?.name]}
               onClick={handleClick}
+              onChange={handleInputChange}
             />
             <label htmlFor={option.id}>{option.title}</label>
             <span className="check-mark"></span>

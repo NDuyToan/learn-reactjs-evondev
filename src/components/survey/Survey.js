@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Question from "./Question";
+import "./style.scss";
 
 const ListQuestion = [
   {
@@ -90,9 +91,14 @@ const ListQuestion = [
 
 const Survey = () => {
   return (
-    <>
+    <div className="survey">
       <Question questions={ListQuestion} />
-    </>
+      <div className="w-100">
+        <button className="mt-4 bg-blue-400 text-white w-full p-2">
+          Submit
+        </button>
+      </div>
+    </div>
   );
 };
 

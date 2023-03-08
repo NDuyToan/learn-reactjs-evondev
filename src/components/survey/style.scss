@@ -2,7 +2,9 @@
   box-sizing: border-box;
 }
 .question {
+ 
   &-container {
+    margin: 0 auto;
     border: 1px solid #bbb;
     border-radius: 16px;
     width: 328px;
@@ -124,4 +126,12 @@
       opacity: 1;
     }
   }
+}
+
+
+.survey {
+  width: 360px;
+  height: 770px;
+  padding-top:10px;
+  background-color: #a4b9ff;
 }

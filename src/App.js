@@ -1,14 +1,16 @@
 import React from "react";
+import Community from "./components/community";
 import Survey from "./components/survey/Survey";
 
 import "./index.scss";
 
 const App = () => {
   return (
-    <div className="p-5">
+    <div className="m-auto">
       {/* <SignUpFormHook /> */}
       {/* <MyComponent /> */}
-      <Survey />
+      {/* <Survey /> */}
+      <Community />
     </div>
   );
 };
