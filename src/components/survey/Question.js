@@ -67,20 +67,29 @@ export default Question;
 const OptionItem = ({ question, index, answers, setAnswers }) => {
   const { options } = question;
   const [isChecked, setIsChecked] = useState(false);
-  console.log("question", question);
-  console.log("answers", answers);
 
   const handleInputChange = (e) => {
-    setAnswers({
-      ...answers,
-      [question?.name]: e?.currentTarget?.value,
-    });
+    // setAnswers({
+    //   ...answers,
+    //   // [question?.name]: answers[question.name] ? "" : e?.currentTarget?.value,
+    //   [question?.name]: e?.currentTarget?.value,
+    // });
   };
 
-  // const handleClick = (e) => {
-  //   console.log("handleClick", e);
-  //   setIsChecked(!isChecked);
-  // };
+  const handleClick = (e) => {
+    console.log("handleClick", e.currentTarget.value);
+    console.log("1", answers[question.name]);
+    setAnswers({
+      ...answers,
+      [question?.name]:
+        answers[question.name] === "" ||
+        answers[question.name !== e?.currentTarget?.value]
+          ? e?.currentTarget?.value
+          : "",
+      // [question?.name]: e?.currentTarget?.value,
+    });
+    // console.log("answers", answers);
+  };
 
   return (
     <div className="option-container">
@@ -94,8 +103,8 @@ const OptionItem = ({ question, index, answers, setAnswers }) => {
               name={option?.name}
               id={option.id}
               value={option.id}
-              onChange={handleInputChange}
               checked={option.id === answers[question?.name]}
+              onClick={handleClick}
             />
             <label htmlFor={option.id}>{option.title}</label>
             <span className="check-mark"></span>
