@@ -46,6 +46,12 @@
       position: absolute;
       bottom: 0;
       right: 0;
+
+      img {
+        background-color: #fff;
+        border-radius: 50%;
+        border: 1px solid #6082f4;
+      }
     }
 
   }
@@ -116,3 +122,4 @@
     }
   }
 }
+

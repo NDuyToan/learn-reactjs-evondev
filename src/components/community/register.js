@@ -31,7 +31,7 @@ const Register = () => {
             onChange={handleUploadAvatar}
           />
           <label htmlFor="avatar" className="btn-upload">
-            <img src={IMAGES.avatar_default} alt="" width={28} height={28} />
+            <img src={IMAGES.camera_svg} alt="" width={28} height={28} />
           </label>
         </div>
         <div className="register-nickname">
@@ -46,6 +46,7 @@ const Register = () => {
       <div className="register-note">
         <p>※ 커뮤니티에서 이용할 닉네임을 필수로 등록 하셔야 합니다.</p>
       </div>
+
       <div className="register-footer">
         <button>등록하기</button>
       </div>
