@@ -1,0 +1,27 @@
+.community {
+  width: 360px;
+  padding: 20px 16px;
+  background-color: #f8f8f8;
+  margin: 20px auto;
+  position: relative;
+
+  // &-actions {
+  //   position: sticky;
+  //   right: 0;
+  //   bottom: 24px;
+  //   float: right;
+  //   & > div {
+  //     cursor: pointer;
+  //   }
+
+  //   .btn-create-post{
+  //     margin-bottom: 10px;
+  //   }
+  // }
+}
+
+.btn-create-post {
+  position: fixed;
+  right: 16px;
+  bottom: 75px;
+}

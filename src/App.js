@@ -1,5 +1,5 @@
 import React from "react";
-import Community from "./components/community";
+import Community from "./components/community/community";
 import Survey from "./components/survey/Survey";
 
 import "./index.scss";
