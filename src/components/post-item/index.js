@@ -1,8 +1,8 @@
 import { IMAGES } from "../../themes/images";
-import "./post.scss";
+import "./styles.scss";
 import ShowMoreText from "react-show-more-text";
 
-const Post = () => {
+const PostItem = () => {
   const executeOnClick = () => {
     console.log("hihi");
   };
@@ -21,13 +21,6 @@ const Post = () => {
       <div className="post-body">
         <h4 className="post-title">굿거래 사칭 주의 하세요</h4>
         <div className="post-content">
-          {/* <p className="post-desc">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio
-            totam nemo magnam aliquam voluptatum quaerat iste repellendus,
-            dolorem beatae, quasi autem aliquid vitae possimus aut! Quam iusto
-            hic molestiae. Eos!
-          </p> */}
-          {/* <span className="read-more">...더보기</span> */}
           <ShowMoreText
             /* Default options */
             lines={2}
@@ -78,4 +71,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default PostItem;
