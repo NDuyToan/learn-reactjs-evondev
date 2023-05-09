@@ -31,7 +31,7 @@ const SignUpForm = () => {
     },
   });
 
-  console.log("formik11", formik);
+  console.log("formik1122", formik);
 
   return (
     <form onSubmit={formik.handleSubmit} className="p-10 max-w-[500px] mx-auto">
