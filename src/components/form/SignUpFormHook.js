@@ -13,15 +13,20 @@ const SignUpFormHook = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (values) => {
-    console.log("values", values);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+        console.log("values", values);
+      }, 2000);
+    });
   };
-  console.log("errors", errors);
+  console.log("isSubmitting", isSubmitting);
 
   return (
     <form
@@ -74,7 +79,11 @@ const SignUpFormHook = () => {
           type="submit"
           className="w-full p-4 bg-blue-500 font-semibold text-white rounded-md"
         >
-          Submit
+          {isSubmitting ? (
+            <div className="mx-auto w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            "Submit"
+          )}
         </button>
       </div>
     </form>
