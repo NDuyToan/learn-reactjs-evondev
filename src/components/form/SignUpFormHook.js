@@ -13,10 +13,13 @@ const SignUpFormHook = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting, isDirty, dirtyFields },
+    watch,
+    formState: { errors, isValid, isSubmitting, isDirty, dirtyFields }, //isDirty: 1 trong cac truong da nhap thi true
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const watchShowAge = watch("showAge", false); // you can supply default value as second argument
 
   const onSubmit = (values) => {
     // return new Promise((resolve) => {
@@ -29,8 +32,6 @@ const SignUpFormHook = () => {
     if (isValid) {
       console.log("send data");
     }
-    console.log("isDirty", isDirty);
-    console.log("dirtyFields", dirtyFields);
   };
 
   return (
@@ -78,6 +79,12 @@ const SignUpFormHook = () => {
           placeholder="Enter your email"
           {...register("email")}
         />
+      </div>
+      <div className="flex flex-col gap-2 mt-4">
+        <input type="checkbox" {...register("showAge")} />
+        {watchShowAge && (
+          <input type="number" name="" id="" placeholder="enter your age" />
+        )}
       </div>
       <div className="mt-4">
         <button
