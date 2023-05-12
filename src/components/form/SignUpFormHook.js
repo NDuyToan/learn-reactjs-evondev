@@ -13,20 +13,25 @@ const SignUpFormHook = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid, isSubmitting, isDirty, dirtyFields },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (values) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-        console.log("values", values);
-      }, 2000);
-    });
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve();
+    //     console.log("values", values);
+    //   }, 2000);
+    // });
+
+    if (isValid) {
+      console.log("send data");
+    }
+    console.log("isDirty", isDirty);
+    console.log("dirtyFields", dirtyFields);
   };
-  console.log("isSubmitting", isSubmitting);
 
   return (
     <form
