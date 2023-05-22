@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useEffect } from "react";
 
 const schema = yup.object({
   firstName: yup
@@ -15,12 +16,18 @@ const SignUpFormHook = () => {
     handleSubmit,
     watch,
     reset,
+    setFocus,
     formState: { errors, isValid, isSubmitting, isDirty, dirtyFields }, //isDirty: 1 trong cac truong da nhap thi true
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const watchShowAge = watch("showAge", false); // you can supply default value as second argument
+
+  useEffect(() => {
+    setFocus("firstName");
+  }, [setFocus]);
 
   const onSubmit = (values) => {
     // return new Promise((resolve) => {
@@ -38,6 +45,13 @@ const SignUpFormHook = () => {
         email: "",
       });
     }
+  };
+
+  const handleSetDemoData = () => {
+    console.log("handleSetDemoData");
+    setValue("firstName", "sao");
+    setValue("lastName", "lang thang");
+    setValue("email", "hihi@gmail.com");
   };
 
   return (
@@ -110,6 +124,15 @@ const SignUpFormHook = () => {
           ) : (
             "Submit"
           )}
+        </button>
+      </div>
+
+      <div className="mt-4">
+        <button
+          className="w-full p-4 bg-green-500 font-semibold text-white rounded-md"
+          onClick={handleSetDemoData}
+        >
+          Demo Data
         </button>
       </div>
     </form>
