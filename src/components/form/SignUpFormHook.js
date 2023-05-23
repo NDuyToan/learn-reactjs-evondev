@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useEffect } from "react";
@@ -19,6 +19,7 @@ const SignUpFormHook = () => {
     setFocus,
     formState: { errors, isValid, isSubmitting, isDirty, dirtyFields }, //isDirty: 1 trong cac truong da nhap thi true
     setValue,
+    control,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -92,13 +93,19 @@ const SignUpFormHook = () => {
       </div>
       <div className="flex flex-col gap-2 mt-4">
         <label htmlFor="email">Email</label>
-        <input
+        <MyInput
+          name="email"
+          placeholder="Enter your email"
+          id="email"
+          control={control}
+        ></MyInput>
+        {/* <input
           type="email"
           id="email"
           className="rounded-md p-4 border border-gray-300"
           placeholder="Enter your email"
           {...register("email")}
-        />
+        /> */}
       </div>
       <div className="flex  flex-col gap-2 mt-4">
         <label htmlFor="">
@@ -140,3 +147,20 @@ const SignUpFormHook = () => {
 };
 
 export default SignUpFormHook;
+
+const MyInput = ({ control, ...props }) => {
+  return (
+    <Controller
+      name={props.name}
+      control={control}
+      defaultValue=""
+      render={({ field }) => (
+        <input
+          className="p-4 rounded-md border border-gray-100"
+          {...field}
+          {...props}
+        />
+      )}
+    ></Controller>
+  );
+};
