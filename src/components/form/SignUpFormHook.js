@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useController, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useEffect } from "react";
@@ -148,19 +148,34 @@ const SignUpFormHook = () => {
 
 export default SignUpFormHook;
 
+// const MyInput = ({ control, ...props }) => {
+//   return (
+//     <Controller
+//       name={props.name}
+//       control={control}
+//       defaultValue=""
+//       render={({ field }) => (
+//         <input
+//           className="p-4 rounded-md border border-gray-100"
+//           {...field}
+//           {...props}
+//         />
+//       )}
+//     ></Controller>
+//   );
+// };
+
 const MyInput = ({ control, ...props }) => {
+  const { field } = useController({
+    control: control,
+    name: props.name,
+    defaultValue: "",
+  });
   return (
-    <Controller
-      name={props.name}
-      control={control}
-      defaultValue=""
-      render={({ field }) => (
-        <input
-          className="p-4 rounded-md border border-gray-100"
-          {...field}
-          {...props}
-        />
-      )}
-    ></Controller>
+    <input
+      className="p-4 rounded-md border border-gray-100"
+      {...field}
+      {...props}
+    />
   );
 };
