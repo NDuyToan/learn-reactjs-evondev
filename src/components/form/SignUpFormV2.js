@@ -22,7 +22,7 @@ const SignUpFormV2 = () => {
     >
       <Form className="p-10 max-w-[500px] mx-auto">
         <div className="flex flex-col gap-2">
-          <label htmlFor="firstName">First Name</label>
+          <label htmlFor="firstName">First Name1</label>
           <Field
             type="text"
             name="firstName"
