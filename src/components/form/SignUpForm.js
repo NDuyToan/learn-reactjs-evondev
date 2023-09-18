@@ -4,11 +4,24 @@ const SignUpForm = () => {
   const [values, setValues] = useState({
     fullName: "",
     email: "",
+    hobby: false,
   });
   const handleInputChange = (e) => {
+    const type = e.target.type;
+    // if (type === "checkbox") {
+    //   setValues({
+    //     ...values,
+    //     [e.target.name]: e.target.checked,
+    //   });
+    // } else {
+    //   setValues({
+    //     ...values,
+    //     [e.target.name]: e.target.value,
+    //   });
+    // }
     setValues({
       ...values,
-      [e.target.name]: e.target.value,
+      [e.target.name]: type === "checkbox" ? e.target.checked : e.target.value,
     });
   };
   return (
@@ -28,6 +41,7 @@ const SignUpForm = () => {
           placeholder="Enter your email"
           onChange={handleInputChange}
         />
+        <input type="checkbox" name="hobby" onChange={handleInputChange} />
       </div>
     </div>
   );
