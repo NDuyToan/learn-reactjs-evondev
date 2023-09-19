@@ -1,29 +1,14 @@
 import { useState } from "react";
+import useHandleChange from "./useHandleChange";
 
 const SignUpForm = () => {
-  const [values, setValues] = useState({
+  const { values, handleInputChange } = useHandleChange({
     fullName: "",
     email: "",
     hobby: false,
   });
-  const handleInputChange = (e) => {
-    const type = e.target.type;
-    // if (type === "checkbox") {
-    //   setValues({
-    //     ...values,
-    //     [e.target.name]: e.target.checked,
-    //   });
-    // } else {
-    //   setValues({
-    //     ...values,
-    //     [e.target.name]: e.target.value,
-    //   });
-    // }
-    setValues({
-      ...values,
-      [e.target.name]: type === "checkbox" ? e.target.checked : e.target.value,
-    });
-  };
+  console.log("values", values);
+
   return (
     <div className="p-5">
       <div className="flex gap-x-3">
