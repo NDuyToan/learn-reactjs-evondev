@@ -1,32 +1,14 @@
-import { useState } from "react";
-import useHandleChange from "./useHandleChange";
-
 const SignUpForm = () => {
-  const { values, handleInputChange } = useHandleChange({
-    fullName: "",
-    email: "",
-    hobby: false,
-  });
-  console.log("values", values);
-
   return (
-    <div className="p-5">
-      <div className="flex gap-x-3">
+    <div className="p-10 w-full max-w-[500px] mx-auto">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="firstName">First Name</label>
         <input
           type="text"
-          name="fullName"
-          className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
-          placeholder="Enter your name"
-          onChange={handleInputChange}
+          id="firstName"
+          placeholder="Enter your first name"
+          className="p-4 rounded-md border border-gray-200"
         />
-        <input
-          type="email"
-          name="email"
-          className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
-          placeholder="Enter your email"
-          onChange={handleInputChange}
-        />
-        <input type="checkbox" name="hobby" onChange={handleInputChange} />
       </div>
     </div>
   );
