@@ -1,26 +1,20 @@
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const SignUpForm = () => {
-  const validate = (values) => {
-    const errors = {};
-    if (!values.firstName) {
-      errors.firstName = "Please enter this field";
-    } else if (values.firstName?.length > 10) {
-      errors.firstName = "Please enter less than 10 characters";
-    }
-    if (!values.lastName) {
-      errors.lastName = "Please enter this field";
-    } else if (values.lastName?.length > 10) {
-      errors.lastName = "Please enter less than 10 characters";
-    }
-    return errors;
-  };
   const formik = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
     },
-    validate,
+    validationSchema: Yup.object({
+      firstName: Yup.string()
+        .required("Please enter this field")
+        .max(10, "Please enter less than 10 characters"),
+      lastName: Yup.string()
+        .required("Please enter this field")
+        .max(10, "Please enter less than 10 characters"),
+    }),
     onSubmit: (values) => {
       console.log("values", values);
     },
@@ -38,12 +32,9 @@ const SignUpForm = () => {
         <input
           type="text"
           id="firstName"
-          name="firstName"
           placeholder="Enter your first name"
           className="p-4 rounded-md border border-gray-200"
-          value={formik.values.firstName}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
+          {...formik.getFieldProps("firstName")}
         />
         {formik.touched.firstName && formik.errors.firstName ? (
           <p className="text-red-500 text-sm">{formik.errors.firstName}</p>
@@ -55,12 +46,9 @@ const SignUpForm = () => {
         <input
           type="text"
           id="lastName"
-          name="lastName"
           placeholder="Enter your last name"
           className="p-4 rounded-md border border-gray-200"
-          value={formik.values.lastName}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
+          {...formik.getFieldProps("lastName")}
         />
         {formik.touched.lastName && formik.errors.lastName ? (
           <p className="text-red-500 text-sm">{formik.errors.lastName}</p>
