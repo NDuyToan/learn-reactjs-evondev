@@ -25,6 +25,7 @@ const SignUpForm = () => {
       console.log("values", values);
     },
   });
+  console.log("🚀 ~ file: SignUpForm.js:28 ~ SignUpForm ~ formik:", formik);
 
   return (
     <form
@@ -42,8 +43,9 @@ const SignUpForm = () => {
           className="p-4 rounded-md border border-gray-200"
           value={formik.values.firstName}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
-        {formik.errors.firstName ? (
+        {formik.touched.firstName && formik.errors.firstName ? (
           <p className="text-red-500 text-sm">{formik.errors.firstName}</p>
         ) : null}
       </div>
@@ -58,8 +60,9 @@ const SignUpForm = () => {
           className="p-4 rounded-md border border-gray-200"
           value={formik.values.lastName}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
-        {formik.errors.lastName ? (
+        {formik.touched.lastName && formik.errors.lastName ? (
           <p className="text-red-500 text-sm">{formik.errors.lastName}</p>
         ) : null}
       </div>
