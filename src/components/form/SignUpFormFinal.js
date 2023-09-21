@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useField } from "formik";
 import * as Yup from "yup";
 
 const SignUpFormFinal = () => {
@@ -15,7 +15,7 @@ const SignUpFormFinal = () => {
       validationSchema={Yup.object({
         firstName: Yup.string().required("Please enter this field"),
         lastName: Yup.string().required("Please enter this field"),
-        email: Yup.string().email().required('"Please enter this field"'),
+        email: Yup.string().email().required("Please enter this field"),
         intro: Yup.string().required("Please enter this field"),
         job: Yup.string().required("Please enter this field"),
         term: Yup.boolean(),
@@ -30,45 +30,29 @@ const SignUpFormFinal = () => {
           label="First Name"
           placeholder="Enter your first name"
           name="firstName"
+          id="firstName"
         ></MyInput>
-        {/* <div className="flex flex-col gap-2 mb-5">
-          <label htmlFor="firstName">First Name</label>
-          <Field
-            type="text"
-            name="firstName"
-            placeholder="Enter your first name"
-            className="p-4 rounded-md border border-gray-200"
-          />
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="firstName" />
-          </div>
-        </div> */}
-
-        <div className="flex flex-col gap-2 mb-5">
-          <label htmlFor="lastName">Last Name</label>
-          <Field
-            type="text"
-            name="lastName"
-            placeholder="Enter your last name"
-            className="p-4 rounded-md border border-gray-200"
-          />
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="lastName" />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2 mb-5">
-          <label htmlFor="email">Email</label>
-          <Field
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            className="p-4 rounded-md border border-gray-200"
-          />
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="email" />
-          </div>
-        </div>
+        <MyInput
+          label="Last Name"
+          placeholder="Enter your last name"
+          name="lastName"
+          id="lastName"
+        ></MyInput>
+        <MyInput
+          label="Email"
+          placeholder="Enter your email"
+          name="email"
+          type="email"
+          id="email"
+        ></MyInput>
+        {/* <MyInput
+          label="Intro"
+          placeholder="Introduce your self..."
+          name="intro"
+          as="textarea"
+          id="intro"
+          className="p-4 rounded-md border border-gray-200 h-[150px] resize-none"
+        ></MyInput> */}
 
         <div className="flex flex-col gap-2 mb-5">
           <label htmlFor="intro">Intro</label>
@@ -127,15 +111,19 @@ const SignUpFormFinal = () => {
 };
 
 const MyInput = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
   return (
     <div className="flex flex-col gap-2 mb-5">
       <label htmlFor={props.name || props.id}>{label}</label>
       <input
         type="text"
         className="p-4 rounded-md border border-gray-200"
+        {...field}
         {...props}
       />
-      <div className="text-sm text-red-500"></div>
+      {meta.touched && meta.error ? (
+        <div className="text-sm text-red-500">{meta.error}</div>
+      ) : null}
     </div>
   );
 };
