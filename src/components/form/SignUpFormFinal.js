@@ -18,7 +18,7 @@ const SignUpFormFinal = () => {
         email: Yup.string().email().required("Please enter this field"),
         intro: Yup.string().required("Please enter this field"),
         job: Yup.string().required("Please enter this field"),
-        term: Yup.boolean(),
+        term: Yup.boolean().oneOf([true], "Please select terms and conditions"),
       })}
       onSubmit={(values) => {
         console.log("values", values);
@@ -45,57 +45,21 @@ const SignUpFormFinal = () => {
           type="email"
           id="email"
         ></MyInput>
-        {/* <MyInput
+        <MyTextArea
           label="Intro"
           placeholder="Introduce your self..."
           name="intro"
-          as="textarea"
           id="intro"
-          className="p-4 rounded-md border border-gray-200 h-[150px] resize-none"
-        ></MyInput> */}
+        ></MyTextArea>
 
-        <div className="flex flex-col gap-2 mb-5">
-          <label htmlFor="intro">Intro</label>
-          <Field
-            name="intro"
-            placeholder="Introduce your self..."
-            className="p-4 rounded-md border border-gray-200 h-[150px] resize-none"
-            as="textarea"
-          />
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="intro" />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2 mb-5">
-          <label htmlFor="email">Select your job</label>
-          <Field
-            type="text"
-            name="job"
-            placeholder="Enter your job"
-            className="p-4 rounded-md border border-gray-200"
-            as="select"
-          >
-            <option value="frontend">Frontend developer</option>
-            <option value="backend">Backend developer</option>
-            <option value="tester">Tester</option>
-          </Field>
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="job" />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 mb-5">
-          <Field
-            name="term"
-            type="checkbox"
-            className="p-4 rounded-md border border-gray-200"
-          ></Field>
+        <MySelect label="Select your job" name="job" id="job">
+          <option value="frontend">Frontend developer</option>
+          <option value="backend">Backend developer</option>
+          <option value="tester">Tester</option>
+        </MySelect>
+        <MyCheckbox name="term">
           <p>I accept the terms and conditions</p>
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="term" />
-          </div>
-        </div>
+        </MyCheckbox>
 
         <div>
           <button
@@ -121,6 +85,57 @@ const MyInput = ({ label, ...props }) => {
         {...field}
         {...props}
       />
+      {meta.touched && meta.error ? (
+        <div className="text-sm text-red-500">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
+const MyTextArea = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="flex flex-col gap-2 mb-5">
+      <label htmlFor={props.name || props.id}>{label}</label>
+      <textarea
+        className="p-4 rounded-md border border-gray-200 h-[150px] resize-none"
+        {...field}
+        {...props}
+      ></textarea>
+      {meta.touched && meta.error ? (
+        <div className="text-sm text-red-500">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
+const MySelect = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="flex flex-col gap-2 mb-5">
+      <label htmlFor={props.name || props.id}>{label}</label>
+      <select
+        className="p-4 rounded-md border border-gray-200"
+        {...field}
+        {...props}
+      ></select>
+      {meta.touched && meta.error ? (
+        <div className="text-sm text-red-500">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
+const MyCheckbox = ({ children, ...props }) => {
+  const [field, meta] = useField(props);
+
+  return (
+    <div className="flex flex-col gap-2 mb-5">
+      <label className="flex gap-2 items-center cursor-pointer">
+        <input type="checkbox" {...field} {...props} />
+        {children}
+      </label>
+
       {meta.touched && meta.error ? (
         <div className="text-sm text-red-500">{meta.error}</div>
       ) : null}
