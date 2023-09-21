@@ -26,7 +26,12 @@ const SignUpFormFinal = () => {
       autoComplete="off"
     >
       <Form className="p-10 w-full max-w-[500px] mx-auto">
-        <div className="flex flex-col gap-2 mb-5">
+        <MyInput
+          label="First Name"
+          placeholder="Enter your first name"
+          name="firstName"
+        ></MyInput>
+        {/* <div className="flex flex-col gap-2 mb-5">
           <label htmlFor="firstName">First Name</label>
           <Field
             type="text"
@@ -37,7 +42,7 @@ const SignUpFormFinal = () => {
           <div className="text-sm text-red-500">
             <ErrorMessage name="firstName" />
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col gap-2 mb-5">
           <label htmlFor="lastName">Last Name</label>
@@ -118,6 +123,20 @@ const SignUpFormFinal = () => {
         </div>
       </Form>
     </Formik>
+  );
+};
+
+const MyInput = ({ label, ...props }) => {
+  return (
+    <div className="flex flex-col gap-2 mb-5">
+      <label htmlFor={props.name || props.id}>{label}</label>
+      <input
+        type="text"
+        className="p-4 rounded-md border border-gray-200"
+        {...props}
+      />
+      <div className="text-sm text-red-500"></div>
+    </div>
   );
 };
 
