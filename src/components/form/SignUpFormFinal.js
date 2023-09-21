@@ -13,63 +13,71 @@ const SignUpFormFinal = () => {
         term: false,
       }}
       validationSchema={Yup.object({
-        firstName: Yup.string().required("Please enter this field"),
-        lastName: Yup.string().required("Please enter this field"),
-        email: Yup.string().email().required("Please enter this field"),
-        intro: Yup.string().required("Please enter this field"),
-        job: Yup.string().required("Please enter this field"),
-        term: Yup.boolean().oneOf([true], "Please select terms and conditions"),
+        // firstName: Yup.string().required("Please enter this field"),
+        // lastName: Yup.string().required("Please enter this field"),
+        // email: Yup.string().email().required("Please enter this field"),
+        // intro: Yup.string().required("Please enter this field"),
+        // job: Yup.string().required("Please enter this field"),
+        // term: Yup.boolean().oneOf([true], "Please select terms and conditions"),
       })}
-      onSubmit={(values) => {
-        console.log("values", values);
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          actions.setSubmitting(false);
+        }, 2000);
       }}
       autoComplete="off"
     >
-      <Form className="p-10 w-full max-w-[500px] mx-auto">
-        <MyInput
-          label="First Name"
-          placeholder="Enter your first name"
-          name="firstName"
-          id="firstName"
-        ></MyInput>
-        <MyInput
-          label="Last Name"
-          placeholder="Enter your last name"
-          name="lastName"
-          id="lastName"
-        ></MyInput>
-        <MyInput
-          label="Email"
-          placeholder="Enter your email"
-          name="email"
-          type="email"
-          id="email"
-        ></MyInput>
-        <MyTextArea
-          label="Intro"
-          placeholder="Introduce your self..."
-          name="intro"
-          id="intro"
-        ></MyTextArea>
+      {(formik) => {
+        console.log("formik", formik);
+        return (
+          <Form className="p-10 w-full max-w-[500px] mx-auto">
+            <MyInput
+              label="First Name"
+              placeholder="Enter your first name"
+              name="firstName"
+              id="firstName"
+            ></MyInput>
+            <MyInput
+              label="Last Name"
+              placeholder="Enter your last name"
+              name="lastName"
+              id="lastName"
+            ></MyInput>
+            <MyInput
+              label="Email"
+              placeholder="Enter your email"
+              name="email"
+              type="email"
+              id="email"
+            ></MyInput>
+            <MyTextArea
+              label="Intro"
+              placeholder="Introduce your self..."
+              name="intro"
+              id="intro"
+            ></MyTextArea>
 
-        <MySelect label="Select your job" name="job" id="job">
-          <option value="frontend">Frontend developer</option>
-          <option value="backend">Backend developer</option>
-          <option value="tester">Tester</option>
-        </MySelect>
-        <MyCheckbox name="term">
-          <p>I accept the terms and conditions</p>
-        </MyCheckbox>
+            <MySelect label="Select your job" name="job" id="job">
+              <option value="frontend">Frontend developer</option>
+              <option value="backend">Backend developer</option>
+              <option value="tester">Tester</option>
+            </MySelect>
+            <MyCheckbox name="term">
+              <p>I accept the terms and conditions</p>
+            </MyCheckbox>
 
-        <div>
-          <button
-            className="w-full bg-blue-500 text-white font-semibold p-4 rounded-lg"
-            type="submit"
-          >
-            Submit
-          </button>
-        </div>
-      </Form>
+            <div>
+              <button
+                className="w-full bg-blue-500 text-white font-semibold p-4 rounded-lg"
+                type="submit"
+                disabled={formik.isSubmitting}
+              >
+                Submit
+              </button>
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
